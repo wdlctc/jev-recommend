@@ -30,7 +30,7 @@ FIG.mkdir(parents=True, exist_ok=True)
 C = {"isolated": "#2a78d6", "listwise": "#eb6834", "sasrec": "#1baf7a", "pointwise": "#4a3aa7",
      "zeroshot": "#9b9a94", "popularity": "#c9c8c2"}
 LABEL = {"isolated": "Jev-style, isolated", "listwise": "Jev-style, listwise", "sasrec": "SASRec (item IDs)",
-         "pointwise": "pointwise (Open-Jev)", "zeroshot": "zero-shot LLM", "popularity": "popularity"}
+         "pointwise": "Jev pointwise", "zeroshot": "zero-shot LLM", "popularity": "popularity"}
 INK, MUTED, GRID = "#0b0b0b", "#52514e", "#e4e3df"
 plt.rcParams.update({"font.size": 10, "axes.edgecolor": GRID, "axes.labelcolor": MUTED, "xtick.color": MUTED,
                      "ytick.color": MUTED, "axes.spines.top": False, "axes.spines.right": False,

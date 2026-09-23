@@ -11,7 +11,7 @@ Blog post: <https://wdlctc.github.io/jev-recommend.html>
 
 | scoring mode | what it is | state encoded | candidates see each other |
 |---|---|---|---|
-| `pointwise` | [Open-Jev](https://github.com/Zefan-Cai/Open-Jev) style: one sequence per (state, candidate), scalar readout at the last token | K times | no |
+| `pointwise` | Jev pointwise: one sequence per (state, candidate), scalar readout at the last token | K times | no |
 | `isolated` | one sequence per request, **block attention mask** + position ids restarting after the state | once | no |
 | `listwise` | `isolated` + a trailing *decide* segment that attends to all candidates, low-rank bilinear term (zero-initialised) | once | through the decide token |
 
@@ -111,7 +111,7 @@ up to K=50, while pointwise grows with K·(state + candidate).
 
 1. **The block mask costs no accuracy and is ~10× cheaper.** Same weights,
    same metrics to bf16 noise, 10× fewer tokens at K=20 and 16× at K=100
-   (2.6× / 10.6× lower uncontended latency). The Open-Jev layout pays for
+   (2.6× / 10.6× lower uncontended latency). The Jev pointwise layout pays for
    re-reading the user state once per candidate.
 2. **Letting candidates compete did not help, even with hard negatives.** The
    listwise term learns non-trivial weights (it flips 8% of top-1 decisions)
@@ -173,7 +173,7 @@ runs/                results.json per run (logits in the release)
   on the 610-user transfer set about ±0.04.
 - The mask-based modes need pure-attention backbones (Qwen3). Linear-attention / SSM
   layers (e.g. Qwen3.5 Gated DeltaNet) ignore attention masks; there you need one row
-  per candidate plus a forked state cache, as Open-Jev and kev do.
+  per candidate plus a forked state cache, as existing open reimplementations do.
 - This is an independent study inspired by TypeSafe's Jev. It does not use or
   reproduce Jev's weights, data or RLCD training.
 

@@ -1,6 +1,6 @@
 """Three ways to score K candidates against one shared state with an LLM.
 
-pointwise  Open-Jev style. One sequence per candidate (state + candidate),
+pointwise  Jev pointwise. One sequence per candidate (state + candidate),
            plain causal attention, scalar readout at the last token. The state
            is recomputed K times; candidates never see each other.
 isolated   Same function, one sequence per record. A block mask lets every
