@@ -1,0 +1,5 @@
+torch>=2.4
+transformers>=4.56
+peft>=0.13
+numpy
+pytest

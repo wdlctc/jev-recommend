@@ -1,0 +1,9 @@
+[project]
+name = "jevrec"
+version = "0.1.0"
+description = "Jev-style typed decision models applied to recommendation ranking"
+requires-python = ">=3.10"
+dependencies = ["torch>=2.4", "transformers>=4.56", "peft>=0.13", "numpy"]
+
+[tool.setuptools]
+packages = ["jevrec"]
