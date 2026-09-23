@@ -260,7 +260,7 @@
     "groups": [
       "all",
       "movie in ML-1M",
-      "movie new since ML-1M"
+      "movie not in ML-1M"
     ],
     "n": [
       610,

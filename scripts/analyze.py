@@ -169,7 +169,7 @@ if (TR / "isolated" / "logits.pt").exists():
     in_ml1m = torch.tensor([r["candidates"][r["label"]] in ml.titles for r in stest])
     TL, TT = run_logits(TR), temps(TR)
     tseries = [s for s in ("popularity", "sasrec", "zeroshot", "isolated", "listwise") if s in TL]
-    groups = {"all": torch.ones_like(in_ml1m), "movie in ML-1M": in_ml1m, "movie new since ML-1M": ~in_ml1m}
+    groups = {"all": torch.ones_like(in_ml1m), "movie in ML-1M": in_ml1m, "movie not in ML-1M": ~in_ml1m}
     vals = {s: [evaluate(TL[s]["test"][g], slabels[g], TT[s])["hr@1"] for g in groups.values()] for s in tseries}
     analysis["transfer"] = {"groups": list(groups), "n": [int(g.sum()) for g in groups.values()], "hr@1": vals,
                             "full": {s: evaluate(TL[s]["test"], slabels, TT[s]) for s in tseries}}

@@ -7,7 +7,8 @@ with no generated text. We compare three ways to score candidates on the same
 backbone, train them on MovieLens-1M, and test them downstream on a newer
 catalogue they have never seen.
 
-Blog post: <https://wdlctc.github.io/jev-recommend.html>
+Blog post: <https://wdlctc.github.io/jev-recommend.html> ·
+Interactive demo: <https://wdlctc.github.io/jev-decision-desk.html> (replays the saved test predictions)
 
 | scoring mode | what it is | state encoded | candidates see each other |
 |---|---|---|---|
@@ -54,10 +55,10 @@ escalate the rest" operating point that calibrated decisions are meant for.
 
 **Downstream transfer**: scorers trained only on ML-1M, applied unchanged to
 `ml-latest-small` (2018 catalogue, 610 users). 245 of the 610 test positives
-are movies that do not exist in ML-1M. Popularity and SASRec are trained on the
+are movies that are not in ML-1M (228 of them released in 2000 or later). Popularity and SASRec are trained on the
 target dataset itself.
 
-| model | HR@1 all (n=610) | movie in ML-1M (n=365) | movie new since ML-1M (n=245) |
+| model | HR@1 all (n=610) | movie in ML-1M (n=365) | movie not in ML-1M (n=245) |
 |---|---|---|---|
 | popularity (target) | 0.385 | 0.466 | 0.265 |
 | SASRec (trained on target) | 0.380 | 0.466 | 0.253 |
@@ -125,8 +126,8 @@ up to K=50, while pointwise grows with K·(state + candidate).
    popularity useless (0.07 HR@1), the 1.7B LLM beats SASRec by 3.8 points.
 4. **Text transfers, IDs do not.** Trained on ML-1M only, the LLM scorer beats a
    SASRec trained on the target data by 14 (1.7B) / 21 (8B) points, and by
-   21 / 30 points on movies that did not exist when the training data was
-   collected. The 8B zero-shot readout alone (0.361) is nearly as good as the
+   21 / 30 points on movies that are not in ML-1M at all (93% released after
+   it was collected). The 8B zero-shot readout alone (0.361) is nearly as good as the
    in-domain SASRec (0.380).
 5. **Calibration is cheap.** Raw ECE 0.07 → 0.023 with one temperature (T≈1.2).
    Both SASRec and the LLM are well calibrated after that; neither is a reason
