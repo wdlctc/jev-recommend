@@ -1,0 +1,5 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 8394.92it/s]
+09:11:56 loaded 506 tensors from runs/q8b/isolated/trainable.pt; missing=[] unused=[]
+09:11:57 mode=isolated world=1 trainable=43.65M
+09:14:03 test hr@1=0.5934 hr@5=0.9000 ndcg@10=0.7858 mrr=0.7277 nll=1.3051 brier=0.5356 ece=0.0424 coverage@p95=0.0984 T=1.032 tokens/record=990

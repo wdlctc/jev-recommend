@@ -141,10 +141,11 @@ if bench.exists():
     for mode in ("pointwise", "isolated", "listwise"):
         rows = sorted((r for r in b["rows"] if r["mode"] == mode), key=lambda r: r["K"])
         ks = [r["K"] for r in rows]
-        for ax, key in zip(axes, ("p50_ms", "tokens")):
+        for ax, key in zip(axes, ("min_ms" if "min_ms" in rows[0] else "p50_ms", "tokens")):
             ax.plot(ks, [r[key] for r in rows], color=C[mode], linewidth=2, marker="o", markersize=4.5,
                     markeredgecolor="white", markeredgewidth=1.5, label=LABEL[mode])
-    for ax, lab in zip(axes, ("p50 latency per request (ms)", "tokens processed per request")):
+    lat = "min latency of 60 requests (ms)" if "min_ms" in b["rows"][0] else "p50 latency per request (ms)"
+    for ax, lab in zip(axes, (lat, "tokens processed per request")):
         ax.set_xscale("log"), ax.set_yscale("log")
         ax.set_xlabel("candidates K"), ax.set_ylabel(lab)
         ax.set_xticks([5, 10, 20, 50, 100], ["5", "10", "20", "50", "100"])

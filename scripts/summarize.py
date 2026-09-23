@@ -29,8 +29,10 @@ if bench.exists():
     b = json.loads(bench.read_text())
     print(f"\nLatency, batch = 1 request, {b['gpu']}, {b['model']}\n")
     ks = sorted({r["K"] for r in b["rows"]})
-    print("| mode | " + " | ".join(f"K={k} p50 ms (tokens)" for k in ks) + " |")
+    print("| mode | " + " | ".join(f"K={k} min / p50 ms (tokens)" for k in ks) + " |")
     print("|---" * (len(ks) + 1) + "|")
     for mode in ("pointwise", "isolated", "listwise"):
         cells = {r["K"]: r for r in b["rows"] if r["mode"] == mode}
-        print(f"| {mode} | " + " | ".join(f"{cells[k]['p50_ms']:.1f} ({cells[k]['tokens']:.0f})" for k in ks) + " |")
+        print(f"| {mode} | " + " | ".join(
+            f"{cells[k].get('min_ms', float('nan')):.0f} / {cells[k]['p50_ms']:.0f} ({cells[k]['tokens']:.0f})"
+            for k in ks) + " |")
