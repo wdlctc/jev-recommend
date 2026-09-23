@@ -1,0 +1,4 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 9230.51it/s]
+07:36:35 mode=isolated world=1 trainable=0.00M
+07:36:53 test hr@1=0.0705 hr@5=0.3164 ndcg@10=0.2815 mrr=0.2138 nll=2.9776 brier=0.9483 ece=0.0065 coverage@p95=0.0000 T=3.126 tokens/record=990

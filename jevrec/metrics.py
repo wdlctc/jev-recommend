@@ -24,6 +24,8 @@ def fit_temperature(logits: torch.Tensor, labels: torch.Tensor) -> float:
 
 def evaluate(logits: torch.Tensor, labels: torch.Tensor, temperature: float = 1.0, bins: int = 15) -> dict:
     logits, labels = logits.float() / temperature, labels.long()
+    if not torch.isfinite(logits).all():
+        raise ValueError("non-finite logits")
     probs = logits.softmax(-1)
     N, K = probs.shape
     # Rank of the positive (0 = top); ties count against the model.

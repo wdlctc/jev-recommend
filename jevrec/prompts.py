@@ -16,7 +16,7 @@ DECIDE = "\nAmong all candidates above, the movie the user watches next is"
 
 
 def state_text(data: MovieLens, history: list[tuple[int, int]]) -> str:
-    lines = [f"- {data.titles[m]} [{data.genres[m]}]: {r}" for m, r in history]
+    lines = [f"- {data.titles[m]} [{data.genres[m]}]: {r:g}" for m, r in history]
     return STATE_HEADER + "\n".join(lines) + "\n" + QUESTION
 
 

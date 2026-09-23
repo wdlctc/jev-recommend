@@ -33,9 +33,12 @@ class SASRec(nn.Module):
     def encode(self, seq: torch.Tensor) -> torch.Tensor:          # [B, L] left-padded ids
         L = seq.shape[1]
         x = self.item(seq) * self.item.embedding_dim ** 0.5 + self.pos(torch.arange(L, device=seq.device))
+        # Timeline mask as in the original SASRec: zero padded positions instead of a key-padding
+        # mask. With left padding plus a causal mask, a key-padding mask leaves the leading pad
+        # queries with no visible key, which yields NaN rows that then leak through 0 * NaN.
+        x = self.drop(x) * (seq != 0).unsqueeze(-1)
         causal = torch.triu(torch.ones(L, L, dtype=torch.bool, device=seq.device), 1)
-        x = self.encoder(self.drop(x), mask=causal, src_key_padding_mask=seq == 0)
-        return self.norm(x)
+        return self.norm(self.encoder(x, mask=causal))
 
     def score(self, seq: torch.Tensor, cands: torch.Tensor) -> torch.Tensor:
         h = self.encode(seq)[:, -1]                                   # last position
@@ -90,15 +93,17 @@ def run_sasrec(data, index, train_seqs, eval_sets, args, device):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--data", default="data")
+    p.add_argument("--dataset", default="ml-1m", choices=["ml-1m", "ml-latest-small"])
     p.add_argument("--out", default="runs/baselines")
     p.add_argument("--history-len", type=int, default=20)
     p.add_argument("--num-candidates", type=int, default=20)
+    p.add_argument("--negatives", default="uniform", choices=["uniform", "popular"])
     p.add_argument("--sasrec-epochs", type=int, default=200)
     p.add_argument("--seed", type=int, default=0)
     args = p.parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    data = load(args.data)
-    kw = dict(history_len=args.history_len, num_candidates=args.num_candidates)
+    data = load(args.data, args.dataset)
+    kw = dict(history_len=args.history_len, num_candidates=args.num_candidates, negatives=args.negatives)
     sets = {s: make_records(data, s, **kw) for s in ("valid", "test")}
     labels = {s: torch.tensor([r["label"] for r in recs]) for s, recs in sets.items()}
     index = {m: i + 1 for i, m in enumerate(data.items)}
@@ -123,6 +128,7 @@ def main():
     results["sasrec"]["train_seconds"] = sas_time
     Path(args.out).mkdir(parents=True, exist_ok=True)
     (Path(args.out) / "results.json").write_text(json.dumps({"args": vars(args), **results}, indent=2))
+    torch.save({"popularity": pop, "sasrec": sas}, Path(args.out) / "logits.pt")
 
 
 if __name__ == "__main__":

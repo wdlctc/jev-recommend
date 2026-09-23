@@ -76,8 +76,10 @@ def main():
     p.add_argument("--mode", choices=MODES, default="isolated")
     p.add_argument("--out", required=True)
     p.add_argument("--data", default="data")
+    p.add_argument("--dataset", default="ml-1m", choices=["ml-1m", "ml-latest-small"])
     p.add_argument("--history-len", type=int, default=20)
     p.add_argument("--num-candidates", type=int, default=20)
+    p.add_argument("--negatives", default="uniform", choices=["uniform", "popular"])
     p.add_argument("--train-candidates", type=int, default=20)
     p.add_argument("--per-user", type=int, default=8)
     p.add_argument("--epochs", type=float, default=1.0)
@@ -96,7 +98,7 @@ def main():
     rank, world, device = setup()
     torch.manual_seed(args.seed)
 
-    data = load(args.data)
+    data = load(args.data, args.dataset)
     rank_ = args.init_lora_rank if args.init_from else (args.lora_rank if args.epochs else 0)
     model, tokenizer = build(args.model, args.mode, lora_rank=rank_, device=device)
     if args.init_from:
@@ -107,7 +109,7 @@ def main():
         model.load_state_dict(state, strict=False)
         log(rank, f"loaded {len(state)} tensors from {args.init_from}; missing={missing} unused={extra}")
     encode = Encoder(tokenizer, data)
-    kw = dict(history_len=args.history_len)
+    kw = dict(history_len=args.history_len, negatives=args.negatives)
     evals = {s: [encode(r) for r in make_records(data, s, num_candidates=args.num_candidates,
                                                     max_users=args.max_eval_users, **kw)]
              for s in ("valid", "test")}
@@ -171,7 +173,8 @@ def main():
     test, cost = score(model, evals["test"], args.eval_batch_size, rank, world)
     if rank == 0:
         temp = fit_temperature(valid, labels["valid"])
-        result = {"mode": args.mode, "model": args.model, "epochs": args.epochs,
+        result = {"mode": args.mode, "model": args.model, "epochs": args.epochs, "dataset": args.dataset,
+                  "init_from": args.init_from,
                   "test": evaluate(test, labels["test"], temp),
                   "test_uncalibrated": evaluate(test, labels["test"]),
                   "eval_cost": {**cost, "records": len(evals["test"]),

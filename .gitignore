@@ -2,5 +2,5 @@
 __pycache__/
 *.pyc
 data/
-runs/
+runs/**/*.pt
 .pytest_cache/

@@ -1,0 +1,4 @@
+/data00/home/cheng.luo/jev-recommend/jevrec/baselines.py:30: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.encoder = nn.TransformerEncoder(layer, layers)
+popularity hr@1=0.2735 hr@5=0.6950 ndcg@10=0.5575 mrr=0.4598 nll=2.3255 brier=0.8541 ece=0.0245 coverage@p95=0.0002
+sasrec hr@1=0.6230 hr@5=0.8987 ndcg@10=0.7986 mrr=0.7464 nll=1.2523 brier=0.5026 ece=0.0130 coverage@p95=0.2293

@@ -12,7 +12,8 @@ GB=${GB:-6,7}
 G=(${GA//,/ } ${GB//,/ })
 R=runs/$TAG
 mkdir -p "$R"
-COMMON="--model $MODEL --batch-size ${BS:-8} --per-user ${PER_USER:-8} --epochs ${EPOCHS:-1}"
+NEG="--negatives ${NEGATIVES:-uniform}"
+COMMON="--model $MODEL $NEG --batch-size ${BS:-8} --per-user ${PER_USER:-8} --epochs ${EPOCHS:-1}"
 
 train() {  # gpus mode port
   CUDA_VISIBLE_DEVICES=$1 torchrun --nproc-per-node $(( $(tr -cd , <<<"$1" | wc -c) + 1 )) --master-port $3 \
@@ -22,13 +23,18 @@ train "$GA" isolated 29511 &
 train "$GB" listwise 29512 &
 wait
 
-CUDA_VISIBLE_DEVICES=${G[0]} python3 -m jevrec.train --model $MODEL --mode pointwise --epochs 0 \
-  --init-from $R/isolated/trainable.pt --out $R/pointwise_from_isolated > $R/pointwise_from_isolated.log 2>&1 &
-CUDA_VISIBLE_DEVICES=${G[1]} python3 -m jevrec.train --model $MODEL --mode isolated --epochs 0 \
+# SKIP_POINTWISE / SKIP_BASELINES / SKIP_BENCH=1 drop the expensive or model-independent parts.
+if [ -z "${SKIP_POINTWISE:-}" ]; then
+  CUDA_VISIBLE_DEVICES=${G[0]} python3 -m jevrec.train --model $MODEL $NEG --mode pointwise --epochs 0 \
+    --init-from $R/isolated/trainable.pt --out $R/pointwise_from_isolated > $R/pointwise_from_isolated.log 2>&1 &
+  CUDA_VISIBLE_DEVICES=${G[2]} python3 -m jevrec.train --model $MODEL $NEG --mode pointwise --epochs 0 \
+    --out $R/zeroshot_pointwise > $R/zeroshot_pointwise.log 2>&1 &
+fi
+CUDA_VISIBLE_DEVICES=${G[1]} python3 -m jevrec.train --model $MODEL $NEG --mode isolated --epochs 0 \
   --out $R/zeroshot_isolated > $R/zeroshot_isolated.log 2>&1 &
-CUDA_VISIBLE_DEVICES=${G[2]} python3 -m jevrec.train --model $MODEL --mode pointwise --epochs 0 \
-  --out $R/zeroshot_pointwise > $R/zeroshot_pointwise.log 2>&1 &
-CUDA_VISIBLE_DEVICES=${G[3]} python3 -m jevrec.baselines --out $R/baselines > $R/baselines.log 2>&1 &
+[ -z "${SKIP_BASELINES:-}" ] && CUDA_VISIBLE_DEVICES=${G[3]} python3 -m jevrec.baselines $NEG \
+  --out $R/baselines > $R/baselines.log 2>&1 &
 wait
-CUDA_VISIBLE_DEVICES=${G[3]} python3 -m jevrec.bench --model $MODEL --out $R/bench.json > $R/bench.log 2>&1
+[ -z "${SKIP_BENCH:-}" ] && CUDA_VISIBLE_DEVICES=${G[3]} python3 -m jevrec.bench --model $MODEL \
+  --out $R/bench.json > $R/bench.log 2>&1
 echo done > $R/DONE

@@ -1,0 +1,5 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 9124.43it/s]
+07:36:37 loaded 396 tensors from runs/q17b/listwise/trainable.pt; missing=[] unused=[]
+07:36:38 mode=listwise world=1 trainable=17.70M
+07:37:05 test hr@1=0.5230 hr@5=0.8754 ndcg@10=0.7410 mrr=0.6751 nll=1.5152 brier=0.6133 ece=0.0607 coverage@p95=0.0393 T=1.073 tokens/record=1003

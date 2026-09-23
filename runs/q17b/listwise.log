@@ -1,0 +1,164 @@
+W0923 06:42:33.297000 1926 torch/distributed/run.py:874] 
+W0923 06:42:33.297000 1926 torch/distributed/run.py:874] *****************************************
+W0923 06:42:33.297000 1926 torch/distributed/run.py:874] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0923 06:42:33.297000 1926 torch/distributed/run.py:874] *****************************************
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  31%|███       | 96/311 [00:00<00:00, 940.70it/s]Loading weights:  52%|█████▏    | 161/311 [00:00<00:00, 1590.20it/s]Loading weights:  61%|██████▏   | 191/311 [00:00<00:00, 933.36it/s]Loading weights:  92%|█████████▏| 285/311 [00:00<00:00, 927.40it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 957.47it/s]
+Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1228.59it/s]
+06:43:07 mode=listwise world=2 trainable=17.70M
+06:43:10 train records/epoch=48320 steps=3020
+06:43:27 step 20/3020 loss=2.6416 acc=0.250 records/s=19.6
+06:43:38 step 40/3020 loss=1.3867 acc=0.750 records/s=23.6
+06:43:48 step 60/3020 loss=1.7705 acc=0.375 records/s=25.5
+06:44:00 step 80/3020 loss=2.3774 acc=0.125 records/s=26.0
+06:44:10 step 100/3020 loss=1.8423 acc=0.375 records/s=26.8
+06:44:21 step 120/3020 loss=0.7773 acc=0.625 records/s=27.3
+06:44:30 step 140/3020 loss=1.5586 acc=0.375 records/s=28.0
+06:44:40 step 160/3020 loss=1.1704 acc=0.750 records/s=28.5
+06:44:50 step 180/3020 loss=1.3856 acc=0.625 records/s=28.9
+06:45:00 step 200/3020 loss=1.5335 acc=0.375 records/s=29.1
+06:45:10 step 220/3020 loss=1.1869 acc=0.750 records/s=29.5
+06:45:19 step 240/3020 loss=2.4068 acc=0.500 records/s=29.8
+06:45:28 step 260/3020 loss=1.0300 acc=0.625 records/s=30.2
+06:45:38 step 280/3020 loss=1.3820 acc=0.625 records/s=30.4
+06:45:48 step 300/3020 loss=1.1537 acc=0.625 records/s=30.5
+06:45:57 step 320/3020 loss=0.9635 acc=0.750 records/s=30.8
+06:46:06 step 340/3020 loss=1.0264 acc=0.875 records/s=31.1
+06:46:15 step 360/3020 loss=1.6385 acc=0.500 records/s=31.3
+06:46:24 step 380/3020 loss=1.3136 acc=0.625 records/s=31.4
+06:46:33 step 400/3020 loss=2.2160 acc=0.500 records/s=31.6
+06:46:42 step 420/3020 loss=2.6774 acc=0.250 records/s=31.7
+06:46:51 step 440/3020 loss=3.1491 acc=0.250 records/s=31.9
+06:47:00 step 460/3020 loss=0.8253 acc=0.875 records/s=32.1
+06:47:09 step 480/3020 loss=1.4104 acc=0.625 records/s=32.2
+06:47:18 step 500/3020 loss=1.1001 acc=0.625 records/s=32.3
+06:47:27 step 520/3020 loss=1.1123 acc=0.625 records/s=32.4
+06:47:36 step 540/3020 loss=0.9513 acc=0.500 records/s=32.5
+06:47:45 step 560/3020 loss=1.3605 acc=0.625 records/s=32.6
+06:47:54 step 580/3020 loss=0.6517 acc=0.750 records/s=32.7
+06:48:03 step 600/3020 loss=0.6891 acc=0.875 records/s=32.8
+06:48:12 step 620/3020 loss=3.3591 acc=0.000 records/s=32.9
+06:48:22 step 640/3020 loss=0.8990 acc=0.750 records/s=32.9
+06:48:30 step 660/3020 loss=0.5117 acc=0.875 records/s=33.0
+06:48:39 step 680/3020 loss=1.6928 acc=0.500 records/s=33.1
+06:48:47 step 700/3020 loss=1.5171 acc=0.375 records/s=33.3
+06:48:56 step 720/3020 loss=1.4512 acc=0.500 records/s=33.3
+06:49:06 step 740/3020 loss=0.4363 acc=0.875 records/s=33.3
+06:49:14 step 760/3020 loss=2.0910 acc=0.500 records/s=33.4
+06:49:23 step 780/3020 loss=0.4608 acc=0.875 records/s=33.5
+06:49:32 step 800/3020 loss=0.8770 acc=0.625 records/s=33.5
+06:49:41 step 820/3020 loss=0.7892 acc=0.750 records/s=33.6
+06:49:50 step 840/3020 loss=1.0509 acc=0.625 records/s=33.7
+06:49:59 step 860/3020 loss=1.1290 acc=0.625 records/s=33.7
+06:50:08 step 880/3020 loss=1.2360 acc=0.625 records/s=33.7
+06:50:17 step 900/3020 loss=2.0523 acc=0.625 records/s=33.8
+06:50:26 step 920/3020 loss=1.8011 acc=0.500 records/s=33.8
+06:50:35 step 940/3020 loss=1.0630 acc=0.625 records/s=33.9
+06:50:43 step 960/3020 loss=0.8737 acc=0.750 records/s=33.9
+06:50:52 step 980/3020 loss=1.8635 acc=0.250 records/s=34.0
+06:51:01 step 1000/3020 loss=1.1955 acc=0.625 records/s=34.0
+06:51:10 step 1020/3020 loss=1.4384 acc=0.625 records/s=34.0
+06:51:19 step 1040/3020 loss=1.7289 acc=0.625 records/s=34.1
+06:51:28 step 1060/3020 loss=0.2915 acc=1.000 records/s=34.1
+06:51:37 step 1080/3020 loss=1.9045 acc=0.375 records/s=34.1
+06:51:46 step 1100/3020 loss=1.6729 acc=0.375 records/s=34.1
+06:51:55 step 1120/3020 loss=2.0511 acc=0.500 records/s=34.2
+06:52:04 step 1140/3020 loss=1.7569 acc=0.500 records/s=34.2
+06:52:14 step 1160/3020 loss=1.6784 acc=0.375 records/s=34.2
+06:52:23 step 1180/3020 loss=0.7750 acc=0.750 records/s=34.2
+06:52:32 step 1200/3020 loss=0.4571 acc=0.875 records/s=34.2
+06:52:41 step 1220/3020 loss=0.6192 acc=0.750 records/s=34.2
+06:52:50 step 1240/3020 loss=0.9637 acc=0.625 records/s=34.2
+06:52:59 step 1260/3020 loss=0.1981 acc=1.000 records/s=34.2
+06:53:08 step 1280/3020 loss=1.4315 acc=0.500 records/s=34.3
+06:53:17 step 1300/3020 loss=0.4394 acc=0.750 records/s=34.3
+06:53:26 step 1320/3020 loss=1.6970 acc=0.625 records/s=34.3
+06:53:35 step 1340/3020 loss=0.4066 acc=1.000 records/s=34.3
+06:53:44 step 1360/3020 loss=1.0071 acc=0.750 records/s=34.4
+06:53:53 step 1380/3020 loss=0.9145 acc=0.750 records/s=34.4
+06:54:02 step 1400/3020 loss=0.9140 acc=0.750 records/s=34.4
+06:54:11 step 1420/3020 loss=1.1723 acc=0.625 records/s=34.4
+06:54:20 step 1440/3020 loss=0.4691 acc=0.750 records/s=34.4
+06:54:29 step 1460/3020 loss=1.5622 acc=0.500 records/s=34.4
+06:54:38 step 1480/3020 loss=2.0588 acc=0.250 records/s=34.5
+06:54:47 step 1500/3020 loss=0.2840 acc=1.000 records/s=34.5
+06:54:56 step 1520/3020 loss=0.4896 acc=0.875 records/s=34.5
+06:55:05 step 1540/3020 loss=1.0821 acc=0.875 records/s=34.5
+06:55:14 step 1560/3020 loss=0.6150 acc=0.750 records/s=34.5
+06:55:22 step 1580/3020 loss=0.4029 acc=1.000 records/s=34.5
+06:55:31 step 1600/3020 loss=1.0572 acc=0.750 records/s=34.6
+06:55:45 step 1620/3020 loss=1.2678 acc=0.500 records/s=34.4
+06:55:57 step 1640/3020 loss=0.7784 acc=0.750 records/s=34.2
+06:56:08 step 1660/3020 loss=0.7995 acc=0.875 records/s=34.2
+06:56:20 step 1680/3020 loss=1.2133 acc=0.625 records/s=34.0
+06:56:32 step 1700/3020 loss=2.1422 acc=0.500 records/s=34.0
+06:56:42 step 1720/3020 loss=0.6403 acc=0.750 records/s=33.9
+06:56:52 step 1740/3020 loss=0.4258 acc=0.875 records/s=33.9
+06:57:01 step 1760/3020 loss=1.0194 acc=0.625 records/s=33.9
+06:57:10 step 1780/3020 loss=1.5436 acc=0.375 records/s=33.9
+06:57:19 step 1800/3020 loss=1.1034 acc=0.750 records/s=34.0
+06:57:29 step 1820/3020 loss=0.7194 acc=0.750 records/s=33.9
+06:57:39 step 1840/3020 loss=1.0805 acc=0.500 records/s=33.9
+06:57:49 step 1860/3020 loss=1.3013 acc=0.375 records/s=33.9
+06:57:58 step 1880/3020 loss=0.9302 acc=0.625 records/s=33.9
+06:58:07 step 1900/3020 loss=0.9555 acc=0.625 records/s=33.9
+06:58:17 step 1920/3020 loss=0.4179 acc=0.875 records/s=33.9
+06:58:26 step 1940/3020 loss=1.2692 acc=0.625 records/s=33.9
+06:58:35 step 1960/3020 loss=1.1733 acc=0.625 records/s=33.9
+06:58:45 step 1980/3020 loss=1.3364 acc=0.625 records/s=33.9
+06:58:54 step 2000/3020 loss=0.9107 acc=0.750 records/s=33.9
+06:59:03 step 2020/3020 loss=1.4992 acc=0.375 records/s=33.9
+06:59:12 step 2040/3020 loss=0.4555 acc=0.875 records/s=33.9
+06:59:21 step 2060/3020 loss=1.0740 acc=0.625 records/s=33.9
+06:59:30 step 2080/3020 loss=1.2929 acc=0.625 records/s=34.0
+06:59:40 step 2100/3020 loss=1.4150 acc=0.625 records/s=34.0
+06:59:49 step 2120/3020 loss=1.5263 acc=0.750 records/s=34.0
+06:59:58 step 2140/3020 loss=0.3820 acc=0.875 records/s=34.0
+07:00:07 step 2160/3020 loss=1.1840 acc=0.625 records/s=34.0
+07:00:16 step 2180/3020 loss=0.7800 acc=0.750 records/s=34.0
+07:00:24 step 2200/3020 loss=1.1803 acc=0.750 records/s=34.0
+07:00:33 step 2220/3020 loss=1.3026 acc=0.500 records/s=34.1
+07:00:42 step 2240/3020 loss=1.3104 acc=0.500 records/s=34.1
+07:00:52 step 2260/3020 loss=2.1681 acc=0.250 records/s=34.1
+07:01:04 step 2280/3020 loss=1.3940 acc=0.500 records/s=34.0
+07:01:12 step 2300/3020 loss=0.5599 acc=0.875 records/s=34.0
+07:01:22 step 2320/3020 loss=1.9203 acc=0.375 records/s=34.0
+07:01:36 step 2340/3020 loss=0.5717 acc=0.750 records/s=33.9
+07:01:45 step 2360/3020 loss=0.8653 acc=0.875 records/s=33.9
+07:01:53 step 2380/3020 loss=0.5545 acc=0.750 records/s=33.9
+07:02:02 step 2400/3020 loss=1.7327 acc=0.625 records/s=33.9
+07:02:11 step 2420/3020 loss=1.9970 acc=0.250 records/s=34.0
+07:02:20 step 2440/3020 loss=1.8323 acc=0.625 records/s=34.0
+07:02:28 step 2460/3020 loss=0.7080 acc=0.625 records/s=34.0
+07:02:37 step 2480/3020 loss=1.3241 acc=0.500 records/s=34.0
+07:02:45 step 2500/3020 loss=2.1204 acc=0.500 records/s=34.0
+07:02:54 step 2520/3020 loss=0.8704 acc=0.625 records/s=34.1
+07:03:03 step 2540/3020 loss=0.7827 acc=0.875 records/s=34.1
+07:03:12 step 2560/3020 loss=0.8723 acc=0.750 records/s=34.1
+07:03:21 step 2580/3020 loss=0.8792 acc=0.750 records/s=34.1
+07:03:29 step 2600/3020 loss=1.7667 acc=0.625 records/s=34.1
+07:03:38 step 2620/3020 loss=1.2482 acc=0.625 records/s=34.1
+07:03:47 step 2640/3020 loss=1.1812 acc=0.625 records/s=34.2
+07:03:56 step 2660/3020 loss=0.4884 acc=0.875 records/s=34.2
+07:04:05 step 2680/3020 loss=0.7309 acc=0.750 records/s=34.2
+07:04:13 step 2700/3020 loss=0.7910 acc=0.500 records/s=34.2
+07:04:22 step 2720/3020 loss=0.8516 acc=0.625 records/s=34.2
+07:04:31 step 2740/3020 loss=0.9404 acc=0.875 records/s=34.2
+07:04:40 step 2760/3020 loss=0.6522 acc=0.875 records/s=34.2
+07:04:49 step 2780/3020 loss=0.8573 acc=0.625 records/s=34.2
+07:04:58 step 2800/3020 loss=0.6923 acc=0.625 records/s=34.3
+07:05:06 step 2820/3020 loss=0.8287 acc=0.625 records/s=34.3
+07:05:16 step 2840/3020 loss=0.6049 acc=0.750 records/s=34.3
+07:05:25 step 2860/3020 loss=0.3647 acc=0.875 records/s=34.3
+07:05:33 step 2880/3020 loss=0.3531 acc=1.000 records/s=34.3
+07:05:42 step 2900/3020 loss=1.3363 acc=0.625 records/s=34.3
+07:05:51 step 2920/3020 loss=0.3888 acc=1.000 records/s=34.3
+07:06:00 step 2940/3020 loss=1.9680 acc=0.500 records/s=34.4
+07:06:09 step 2960/3020 loss=0.5887 acc=0.625 records/s=34.4
+07:06:17 step 2980/3020 loss=0.7814 acc=0.625 records/s=34.4
+07:06:26 step 3000/3020 loss=0.4564 acc=1.000 records/s=34.4
+07:06:35 step 3020/3020 loss=1.2715 acc=0.375 records/s=34.4
+07:08:15 test hr@1=0.6040 hr@5=0.8940 ndcg@10=0.7854 mrr=0.7318 nll=1.2861 brier=0.5210 ece=0.0259 coverage@p95=0.1856 T=1.215 tokens/record=923
+/usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
