@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 
 import matplotlib
+import matplotlib.ticker
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import torch  # noqa: E402
@@ -137,7 +138,7 @@ analysis["reliability"] = rel
 bench = RUN / "bench.json"
 if bench.exists():
     b = json.loads(bench.read_text())
-    fig, axes = plt.subplots(1, 2, figsize=(8.4, 3.2))
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.2), gridspec_kw={"wspace": 0.38})
     for mode in ("pointwise", "isolated", "listwise"):
         rows = sorted((r for r in b["rows"] if r["mode"] == mode), key=lambda r: r["K"])
         ks = [r["K"] for r in rows]
@@ -149,6 +150,10 @@ if bench.exists():
         ax.set_xscale("log"), ax.set_yscale("log")
         ax.set_xlabel("candidates K"), ax.set_ylabel(lab)
         ax.set_xticks([5, 10, 20, 50, 100], ["5", "10", "20", "50", "100"])
+        ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:,.0f}"))
+        ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+    axes[0].set_yticks([20, 50, 100, 200, 300])
+    axes[1].set_yticks([500, 1000, 2000, 5000, 10000, 20000, 50000])
     axes[0].legend(fontsize=8.5, loc="upper left")
     fig.suptitle(f"One request, batch 1, {b['gpu']}", x=0.01, ha="left", color=INK, fontsize=10)
     fig.savefig(FIG / "latency.png")

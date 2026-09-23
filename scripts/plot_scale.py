@@ -39,3 +39,25 @@ ax.legend(ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.14), fontsize=8.5,
 ax.set_title("Backbone scale: in-domain vs. transfer", loc="left", color="#0b0b0b")
 fig.savefig(out, dpi=160, bbox_inches="tight")
 print(out)
+
+# Uniform vs popularity-sampled negatives (Qwen3-1.7B).
+runs = {"uniform": "q17b", "popularity-sampled": "q17b_hard"}
+if all((R / r / "isolated" / "results.json").exists() for r in runs.values()):
+    rows = [("popularity", "#c9c8c2", lambda r: get(f"{r}/baselines/results.json")["popularity"]["test"]["hr@1"]),
+            ("SASRec", "#1baf7a", lambda r: get(f"{r}/baselines/results.json")["sasrec"]["test"]["hr@1"]),
+            ("Jev-style isolated", "#2a78d6", lambda r: get(f"{r}/isolated/results.json")["test"]["hr@1"]),
+            ("Jev-style listwise", "#eb6834", lambda r: get(f"{r}/listwise/results.json")["test"]["hr@1"])]
+    fig, ax = plt.subplots(figsize=(6.4, 3.4))
+    w = 0.18
+    for i, (label, color, fn) in enumerate(rows):
+        xs = [g + (i - 1.5) * (w + 0.02) for g in (0, 1)]
+        vals = [fn(r) for r in runs.values()]
+        ax.bar(xs, vals, w, color=color, label=label)
+        for x, v in zip(xs, vals):
+            ax.text(x, v + 0.01, f"{v:.2f}", ha="center", fontsize=7.5, color="#52514e")
+    ax.set_xticks([0, 1], [f"{k} negatives" for k in runs])
+    ax.set_ylabel("HR@1 (K=20), Qwen3-1.7B")
+    ax.grid(axis="x", visible=False)
+    ax.legend(ncol=4, loc="upper center", bbox_to_anchor=(0.5, -0.12), fontsize=8.5, frameon=False)
+    ax.set_title("Harder negatives remove the popularity shortcut", loc="left", color="#0b0b0b")
+    fig.savefig(out.parent / "negatives.png", dpi=160, bbox_inches="tight")

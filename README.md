@@ -71,18 +71,37 @@ target dataset itself.
 Rows without a model tag are Qwen3-1.7B. Both transfer gains over SASRec are
 significant (McNemar p = 3e-8 for 1.7B, 6e-16 for 8B).
 
-**Latency**, one request, batch 1, B200, HF eager + SDPA, p50 ms (tokens):
+**Hard negatives**: the same Qwen3-1.7B setup, but the 19 negatives are sampled
+proportionally to popularity (median negative popularity 562 vs 107 for uniform),
+which removes the "recommend what is popular" shortcut.
+
+| model | HR@1 | HR@5 | NDCG@10 | NLL | ECE | auto @95% |
+|---|---|---|---|---|---|---|
+| popularity | 0.068 | 0.294 | 0.253 | 3.00 | 0.015 | 0.0% |
+| SASRec | 0.448 | 0.795 | 0.671 | 1.84 | 0.026 | 5.8% |
+| zero-shot LLM | 0.084 | 0.341 | 0.296 | 2.96 | 0.005 | 0.0% |
+| **Jev-style, isolated** | **0.486** | 0.806 | **0.693** | 1.69 | **0.017** | 11.4% |
+| Jev-style, listwise | 0.480 | **0.806** | 0.693 | **1.68** | 0.019 | **11.6%** |
+
+Isolated vs SASRec: +3.8 points (McNemar p = 1.5e-9, CI [+2.5, +5.0]).
+Listwise vs isolated: −0.6 points top-1 (p = 0.03).
+
+**Latency**, one request, batch 1, B200, HF eager + SDPA, three modes sharing one
+backbone and timed interleaved over 60 requests. min / p50 ms (tokens):
 
 | mode | K=5 | K=10 | K=20 | K=50 | K=100 |
 |---|---|---|---|---|---|
-| pointwise | 74 (2,294) | 98 (4,588) | 210 (9,169) | 210 (22,926) | 360 (45,851) |
-| isolated | 74 (555) | 73 (675) | 73 (909) | 74 (1,622) | 95 (2,809) |
-| listwise | 71 (568) | 72 (688) | 72 (922) | 74 (1,635) | 85 (2,822) |
+| pointwise | 23 / 72 (2,286) | 33 / 84 (4,571) | 57 / 112 (9,143) | 141 / 203 (22,851) | 286 / 356 (45,711) |
+| isolated | 21 / 22 (553) | 21 / 70 (672) | 22 / 22 (911) | 22 / 72 (1,620) | 27 / 88 (2,816) |
+| listwise | 22 / 22 (566) | 22 / 71 (685) | 22 / 23 (924) | 22 / 26 (1,633) | 28 / 93 (2,829) |
 
-Below ~2k tokens the model is launch-bound (~72 ms floor for 28 layers in eager
-PyTorch), so tokens are the more portable cost measure.
+The box is shared: individual requests intermittently stall by ~50 ms (host
+load), which makes p50 bimodal. The minimum is the uncontended number. A 28-layer
+model in eager PyTorch has a ~21 ms launch floor, so the masked modes stay flat
+up to K=50, while pointwise grows with K·(state + candidate).
 
 ![scale](figures/scale.png)
+![negatives](figures/negatives.png)
 ![latency](figures/latency.png)
 ![popularity](figures/popularity.png)
 ![transfer](figures/transfer.png)
@@ -90,18 +109,20 @@ PyTorch), so tokens are the more portable cost measure.
 
 ### What we learned
 
-1. **The block mask is free accuracy-wise and ~10× cheaper.** Same weights,
-   same metrics to bf16 noise, 10× fewer tokens at K=20 and 16× at K=100. The
-   Open-Jev layout pays for re-reading the user state once per candidate.
-2. **Letting candidates compete did not help here.** The listwise term learns
-   non-trivial weights (it flips 8% of top-1 decisions vs isolated) but gains
-   nothing on average. With random negatives each candidate can be judged on
-   its own; the comparison is more likely to matter with hard, similar
-   negatives.
-3. **In-domain, ID models remain strong.** SASRec beats the 1.7B LLM by ~2
-   points HR@1 and ties the 8B one. The LLM wins on the least popular positives
-   (<50 training interactions) and on the most popular ones, and loses in the
-   middle band where ID embeddings are well trained.
+1. **The block mask costs no accuracy and is ~10× cheaper.** Same weights,
+   same metrics to bf16 noise, 10× fewer tokens at K=20 and 16× at K=100
+   (2.6× / 10.6× lower uncontended latency). The Open-Jev layout pays for
+   re-reading the user state once per candidate.
+2. **Letting candidates compete did not help, even with hard negatives.** The
+   listwise term learns non-trivial weights (it flips 8% of top-1 decisions)
+   but gains nothing with uniform negatives and loses 0.6 points top-1 with
+   popularity-sampled ones.
+3. **In-domain, ID models remain strong, partly through popularity.** With
+   uniform negatives SASRec beats the 1.7B LLM by ~2 points and ties the 8B
+   one. The LLM wins on the least popular positives (<50 training interactions)
+   and on the most popular ones, and loses in the middle band where ID
+   embeddings are well trained. With popularity-sampled negatives, which make
+   popularity useless (0.07 HR@1), the 1.7B LLM beats SASRec by 3.8 points.
 4. **Text transfers, IDs do not.** Trained on ML-1M only, the LLM scorer beats a
    SASRec trained on the target data by 14 (1.7B) / 21 (8B) points, and by
    21 / 30 points on movies that did not exist when the training data was
@@ -146,7 +167,8 @@ runs/                results.json per run (logits in the release)
 
 ## Caveats
 
-- Random negatives, K=20: an easier protocol than full ranking; all models share it.
+- Sampled negatives, K=20 (uniform, plus a popularity-sampled variant): easier than
+  full-catalogue ranking; all models share each protocol.
 - One seed per configuration. With 6,040 test users the 95% CI on HR@1 is about ±0.012;
   on the 610-user transfer set about ±0.04.
 - The mask-based modes need pure-attention backbones (Qwen3). Linear-attention / SSM
