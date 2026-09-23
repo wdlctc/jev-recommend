@@ -177,6 +177,15 @@ runs/                results.json per run (logits in the release)
 - This is an independent study inspired by TypeSafe's Jev. It does not use or
   reproduce Jev's weights, data or RLCD training.
 
+## Acknowledgements
+
+Our implementation builds on existing open reimplementations of Jev, including
+[Open-Jev](https://github.com/Zefan-Cai/Open-Jev) (per-candidate scoring with a
+Yes/No-initialised scalar head, which our `pointwise` mode follows) and
+[kev](https://github.com/jaredpalmer/kev) (question isolation via attention masking
+with per-question position ids, and a decide-token readout, which our `isolated`
+and `listwise` modes follow).
+
 ## License
 
 Apache-2.0. MovieLens data is subject to the
