@@ -1,0 +1,23 @@
+{
+  "model": "Qwen/Qwen3-1.7B",
+  "variant": "retrofit",
+  "init_from": "runs/q17b/isolated/trainable.pt",
+  "out": "runs/exit/q17b_retrofit",
+  "data": "data",
+  "history_len": 20,
+  "num_candidates": 20,
+  "negatives": "uniform",
+  "per_user": 8,
+  "epochs": 1.0,
+  "batch_size": 8,
+  "eval_batch_size": 16,
+  "lr": 0.0001,
+  "head_lr": 0.001,
+  "lora_rank": 16,
+  "brier_weight": 0.1,
+  "aux_weight": 1.0,
+  "max_eval_users": null,
+  "max_train_users": null,
+  "seed": 0,
+  "world": 2
+}

@@ -133,6 +133,77 @@ up to K=50, while pointwise grows with K·(state + candidate).
    Both SASRec and the LLM are well calibrated after that; neither is a reason
    to prefer the other.
 
+## Early exit: a decision at every layer
+
+Every decoder layer gets its own readout `head_l(norm(h_l))`, so each layer
+emits a full distribution over the K candidates. A request leaves the network
+at the first layer where the decision is *settled*:
+
+    p_max >= tau_hi                                   (one very confident read)
+    or  same argmax for m layers in a row, p_max >= tau_lo   (the decision has stopped moving)
+
+with a per-layer temperature fitted on validation. The decision covers the whole
+Choice, so a request exits as a unit and the batch just shrinks; since nothing is
+generated there is no KV cache to patch (unlike token-level early exit).
+
+- **retrofit**: freeze a finished isolated run, fit only the intermediate heads
+  (~8 min on 2 GPUs). The last layer is bit-identical to the original model.
+- **joint**: LoRA + all heads from scratch with depth-weighted deep supervision.
+
+Exit rules are chosen on validation for an allowed HR@1 drop, then applied once
+to test (`jevrec/exit_policy.py`). Cost = mean fraction of decoder layers run.
+
+| model | rule | test HR@1 | NDCG@10 | ECE | layers run | layer speedup |
+|---|---|---|---|---|---|---|
+| Qwen3-1.7B | full network | 0.6045 | 0.786 | 0.023 | 1.000 | 1.00x |
+| Qwen3-1.7B retrofit | static cut after 18 of 28 layers | 0.5997 | 0.782 | 0.026 | 0.643 | 1.56x |
+| Qwen3-1.7B retrofit | **adaptive** (tau_hi 0.7 or 3 agreeing layers) | 0.5978 | 0.780 | 0.023 | 0.592 | **1.69x** |
+| Qwen3-1.7B retrofit | adaptive (tau_hi 0.7 or 2 agreeing layers) | 0.5925 | 0.777 | 0.020 | 0.566 | 1.77x |
+| Qwen3-1.7B joint | adaptive (tau_hi 0.7 or 2 agreeing layers) | 0.5930 | 0.779 | 0.020 | 0.562 | 1.78x |
+| Qwen3-8B | full network | 0.6333 | 0.804 | 0.023 | 1.000 | 1.00x |
+| Qwen3-8B retrofit | static cut after 21 of 36 layers | 0.6255 | 0.800 | 0.020 | 0.583 | 1.71x |
+| Qwen3-8B retrofit | **adaptive** (tau_hi 0.8 or 3 agreeing layers) | **0.6300** | 0.801 | 0.019 | 0.574 | **1.74x** |
+
+Wall clock on one B200 (merged LoRA, bf16, 1,000 test requests, both paths timed
+back to back on the same batches):
+
+| model | batch 1 | batch 16 | batch 64 |
+|---|---|---|---|
+| Qwen3-1.7B retrofit, 1.77x rule | 22.9 → 14.8 ms (**1.54x**) | 127 → 78 ms (**1.64x**) | 505 → 299 ms (**1.69x**) |
+| Qwen3-8B retrofit, 1.74x rule | 31.2 → 19.8 ms (**1.58x**) | 362 → 214 ms (**1.69x**) | 1468 → 860 ms (**1.71x**) |
+
+![early exit](figures/exit.png)
+
+What we learned:
+
+- **The fine-tuned model decides at ~60% depth.** Per-layer HR@1 plateaus around
+  18 of 28 layers (1.7B) and 21 of 36 (8B); the rest of the network barely changes the
+  argmax. Much of the speedup is available to a plain static cut.
+- **"Settled for several layers" is the useful signal, not "very confident".**
+  With K = 20 the top probability is rarely high, so confidence-only rules reach
+  1.1-1.4x; agreement across consecutive layers reaches 1.6-1.8x. Adaptive exit
+  beats the static cut at equal cost by about +0.5 HR@1 points (8B: 0.6300 at
+  0.574 of the layers vs 0.6255 at 0.583). The oracle (stop once the argmax never
+  changes again) is 2.2-2.4x, so a better rule has room left.
+- **Retrofit is enough.** Joint training makes early layers much stronger
+  (after 8 layers: 0.51 vs 0.39 HR@1) but costs 0.9 points at the last layer, so its
+  accuracy/cost frontier ends up on top of the retrofit one.
+- **It costs roughly 0.3-1.2 HR@1 points on test** even when the rule is tuned for
+  no loss on validation; the valid/test gap is of that size.
+- **Serving gotcha:** cuDNN SDPA builds an execution plan for every new
+  (batch, length) shape. Exiting shrinks the batch at many layers, so with cuDNN
+  attention batch 16 got *slower* (0.74x) because of plan building. The numbers above disable cuDNN SDPA
+  (`--no-cudnn-sdpa`, the full network is not slower without it); bucketing
+  lengths works too. With merged LoRA in bf16, 7-10% of requests exit at a
+  different layer than in the offline replay from saved logits.
+
+```bash
+bash scripts/run_exit.sh                                          # 1.7B retrofit + joint, 8B retrofit
+python -m jevrec.exit_policy runs/exit/q17b_retrofit              # choose rules on valid, report test
+python -m jevrec.bench_exit runs/exit/q17b_retrofit --budget 0.5 --family combined --no-cudnn-sdpa
+python scripts/plot_exit.py figures/exit.png
+```
+
 ## Reproduce
 
 ```bash
@@ -163,6 +234,10 @@ jevrec/train.py      DDP training, sharded eval, temperature fit
 jevrec/metrics.py    HR/NDCG/MRR, NLL, Brier, ECE, auto-decidable coverage
 jevrec/baselines.py  popularity and SASRec on the same candidate sets
 jevrec/bench.py      per-request latency sweep over K
+jevrec/exit.py       per-layer heads, real early exit with batch compaction, offline replay
+jevrec/train_exit.py retrofit / joint training of the per-layer heads
+jevrec/exit_policy.py  choose exit rules on valid, report test
+jevrec/bench_exit.py wall clock of early exit vs the full network
 runs/                results.json per run (logits in the release)
 ```
 

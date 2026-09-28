@@ -1,0 +1,57 @@
+{
+  "run": "runs/exit/q8b_retrofit",
+  "gpu": "NVIDIA B200",
+  "policy": {
+    "tau_hi": 0.8,
+    "patience": 3,
+    "tau_lo": 0.0,
+    "min_layer": 18
+  },
+  "budget": "0.25",
+  "family": "combined",
+  "layers": 36,
+  "rows": [
+    {
+      "batch": 1,
+      "requests": 1021,
+      "full_ms_per_batch": 31.986460999178234,
+      "exit_ms_per_batch": 20.328593003796414,
+      "full_total_s": 38.04010406992893,
+      "exit_total_s": 24.925233228954312,
+      "hr1_full": 0.6425073742866516,
+      "hr1_exit": 0.63858962059021,
+      "mean_layers": 20.698335647583008,
+      "exit_layers_match_sim": 0.9030362367630005,
+      "speedup_total": 1.5261684302211371,
+      "speedup_median": 1.5734714642181427
+    },
+    {
+      "batch": 16,
+      "requests": 976,
+      "full_ms_per_batch": 359.43270499410573,
+      "exit_ms_per_batch": 355.6271600027685,
+      "full_total_s": 22.240785097972548,
+      "exit_total_s": 21.850810192998324,
+      "hr1_full": 0.6485655903816223,
+      "hr1_exit": 0.6413934230804443,
+      "mean_layers": 20.703893661499023,
+      "exit_layers_match_sim": 0.9077869057655334,
+      "speedup_total": 1.0178471599693444,
+      "speedup_median": 1.0107009402524476
+    },
+    {
+      "batch": 64,
+      "requests": 832,
+      "full_ms_per_batch": 1471.8035300029442,
+      "exit_ms_per_batch": 1022.3922099976335,
+      "full_total_s": 19.412072103004903,
+      "exit_total_s": 13.420262957995874,
+      "hr1_full": 0.6382211446762085,
+      "hr1_exit": 0.6334134340286255,
+      "mean_layers": 20.733173370361328,
+      "exit_layers_match_sim": 0.8990384340286255,
+      "speedup_total": 1.44647479440327,
+      "speedup_median": 1.4395684118195218
+    }
+  ]
+}

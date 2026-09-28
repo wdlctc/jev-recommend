@@ -1,0 +1,120 @@
+W0928 22:46:50.820000 830 torch/distributed/run.py:874] 
+W0928 22:46:50.820000 830 torch/distributed/run.py:874] *****************************************
+W0928 22:46:50.820000 830 torch/distributed/run.py:874] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0928 22:46:50.820000 830 torch/distributed/run.py:874] *****************************************
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 9283.40it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 9293.71it/s]
+Loading weights: 100%|██████████| 311/311 [00:00<00:00, 9678.78it/s]
+Loading weights: 100%|██████████| 311/311 [00:00<00:00, 9566.70it/s]
+22:47:15 variant=joint layers=28 world=4 trainable=17.49M (heads 56 tensors)
+22:47:19 train records/epoch=48320 steps=1510
+22:47:34 step 20/1510 loss=7.1012 last=3.6258 {'acc@7': 0.0, 'acc@14': 0.0, 'acc@21': 0.125, 'acc@27': 0.25} records/s=43.3
+22:47:45 step 40/1510 loss=4.8173 last=2.3895 {'acc@7': 0.125, 'acc@14': 0.125, 'acc@21': 0.375, 'acc@27': 0.25} records/s=50.4
+22:47:56 step 60/1510 loss=2.3239 last=1.0160 {'acc@7': 0.125, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.875} records/s=52.0
+22:48:08 step 80/1510 loss=2.1712 last=0.9378 {'acc@7': 0.25, 'acc@14': 0.5, 'acc@21': 0.875, 'acc@27': 0.875} records/s=52.6
+22:48:20 step 100/1510 loss=2.7448 last=1.2708 {'acc@7': 0.125, 'acc@14': 0.625, 'acc@21': 0.625, 'acc@27': 0.625} records/s=53.1
+22:48:31 step 120/1510 loss=2.2168 last=0.9618 {'acc@7': 0.375, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=53.6
+22:48:41 step 140/1510 loss=4.4192 last=2.0656 {'acc@7': 0.25, 'acc@14': 0.375, 'acc@21': 0.375, 'acc@27': 0.5} records/s=54.6
+22:48:52 step 160/1510 loss=3.7272 last=1.7149 {'acc@7': 0.25, 'acc@14': 0.5, 'acc@21': 0.625, 'acc@27': 0.5} records/s=55.2
+22:49:02 step 180/1510 loss=1.9296 last=0.8430 {'acc@7': 0.5, 'acc@14': 0.75, 'acc@21': 0.875, 'acc@27': 0.875} records/s=56.1
+22:49:12 step 200/1510 loss=4.6689 last=2.2668 {'acc@7': 0.125, 'acc@14': 0.375, 'acc@21': 0.375, 'acc@27': 0.375} records/s=57.0
+22:49:22 step 220/1510 loss=2.9595 last=1.3738 {'acc@7': 0.5, 'acc@14': 0.625, 'acc@21': 0.75, 'acc@27': 0.625} records/s=57.2
+22:49:32 step 240/1510 loss=3.6905 last=1.7161 {'acc@7': 0.25, 'acc@14': 0.125, 'acc@21': 0.375, 'acc@27': 0.125} records/s=57.9
+22:49:41 step 260/1510 loss=1.5817 last=0.6713 {'acc@7': 0.625, 'acc@14': 0.625, 'acc@21': 0.75, 'acc@27': 0.75} records/s=58.6
+22:49:51 step 280/1510 loss=1.7184 last=0.7502 {'acc@7': 0.25, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=59.0
+22:50:01 step 300/1510 loss=1.6477 last=0.7248 {'acc@7': 0.375, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.875} records/s=59.4
+22:50:11 step 320/1510 loss=2.5535 last=1.2191 {'acc@7': 0.625, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=59.6
+22:50:21 step 340/1510 loss=1.5202 last=0.6870 {'acc@7': 0.625, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=60.0
+22:50:30 step 360/1510 loss=2.0828 last=0.9223 {'acc@7': 0.25, 'acc@14': 0.625, 'acc@21': 0.625, 'acc@27': 0.625} records/s=60.3
+22:50:40 step 380/1510 loss=2.0232 last=0.9238 {'acc@7': 0.25, 'acc@14': 0.625, 'acc@21': 0.625, 'acc@27': 0.625} records/s=60.7
+22:50:49 step 400/1510 loss=0.5636 last=0.2147 {'acc@7': 0.75, 'acc@14': 1.0, 'acc@21': 0.875, 'acc@27': 0.875} records/s=60.9
+22:50:58 step 420/1510 loss=1.3617 last=0.6216 {'acc@7': 0.875, 'acc@14': 0.875, 'acc@21': 0.75, 'acc@27': 0.875} records/s=61.3
+22:51:08 step 440/1510 loss=1.9533 last=0.8929 {'acc@7': 0.375, 'acc@14': 0.625, 'acc@21': 0.75, 'acc@27': 0.75} records/s=61.6
+22:51:17 step 460/1510 loss=3.3846 last=1.6553 {'acc@7': 0.5, 'acc@14': 0.375, 'acc@21': 0.375, 'acc@27': 0.375} records/s=61.8
+22:51:27 step 480/1510 loss=3.0777 last=1.5257 {'acc@7': 0.5, 'acc@14': 0.5, 'acc@21': 0.625, 'acc@27': 0.5} records/s=62.0
+22:51:36 step 500/1510 loss=1.7375 last=0.7747 {'acc@7': 0.5, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.625} records/s=62.3
+22:51:46 step 520/1510 loss=2.2551 last=1.0756 {'acc@7': 0.625, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=62.5
+22:51:55 step 540/1510 loss=1.7488 last=0.8134 {'acc@7': 0.625, 'acc@14': 0.75, 'acc@21': 0.875, 'acc@27': 0.875} records/s=62.6
+22:52:05 step 560/1510 loss=1.9408 last=0.8937 {'acc@7': 0.625, 'acc@14': 0.75, 'acc@21': 0.875, 'acc@27': 0.75} records/s=62.8
+22:52:14 step 580/1510 loss=2.6761 last=1.2494 {'acc@7': 0.375, 'acc@14': 0.5, 'acc@21': 0.5, 'acc@27': 0.5} records/s=62.9
+22:52:24 step 600/1510 loss=2.4599 last=1.1772 {'acc@7': 0.75, 'acc@14': 0.75, 'acc@21': 0.875, 'acc@27': 0.75} records/s=63.0
+22:52:33 step 620/1510 loss=1.3772 last=0.5999 {'acc@7': 0.75, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=63.2
+22:52:43 step 640/1510 loss=1.6587 last=0.7617 {'acc@7': 0.75, 'acc@14': 0.875, 'acc@21': 0.75, 'acc@27': 0.75} records/s=63.3
+22:52:52 step 660/1510 loss=1.2231 last=0.5252 {'acc@7': 0.875, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.875} records/s=63.5
+22:53:01 step 680/1510 loss=3.9088 last=1.9505 {'acc@7': 0.25, 'acc@14': 0.5, 'acc@21': 0.5, 'acc@27': 0.5} records/s=63.7
+22:53:10 step 700/1510 loss=2.8140 last=1.3392 {'acc@7': 0.25, 'acc@14': 0.75, 'acc@21': 0.625, 'acc@27': 0.625} records/s=63.8
+22:53:20 step 720/1510 loss=1.0532 last=0.4556 {'acc@7': 0.75, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.875} records/s=63.9
+22:53:29 step 740/1510 loss=2.2683 last=1.0954 {'acc@7': 0.375, 'acc@14': 0.625, 'acc@21': 0.625, 'acc@27': 0.625} records/s=64.1
+22:53:38 step 760/1510 loss=1.4866 last=0.6400 {'acc@7': 0.625, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.875} records/s=64.1
+22:53:47 step 780/1510 loss=2.9052 last=1.5022 {'acc@7': 0.5, 'acc@14': 0.625, 'acc@21': 0.5, 'acc@27': 0.625} records/s=64.3
+22:53:56 step 800/1510 loss=3.8729 last=1.8593 {'acc@7': 0.375, 'acc@14': 0.375, 'acc@21': 0.5, 'acc@27': 0.5} records/s=64.5
+22:54:06 step 820/1510 loss=2.0181 last=0.9673 {'acc@7': 0.625, 'acc@14': 0.625, 'acc@21': 0.75, 'acc@27': 0.75} records/s=64.5
+22:54:15 step 840/1510 loss=1.2440 last=0.5631 {'acc@7': 0.5, 'acc@14': 0.75, 'acc@21': 0.875, 'acc@27': 0.875} records/s=64.6
+22:54:25 step 860/1510 loss=2.4502 last=1.1443 {'acc@7': 0.375, 'acc@14': 0.375, 'acc@21': 0.5, 'acc@27': 0.625} records/s=64.7
+22:54:34 step 880/1510 loss=2.2349 last=1.0774 {'acc@7': 0.625, 'acc@14': 0.625, 'acc@21': 0.75, 'acc@27': 0.75} records/s=64.8
+22:54:43 step 900/1510 loss=1.3633 last=0.5321 {'acc@7': 0.625, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=64.8
+22:54:53 step 920/1510 loss=2.5322 last=1.2268 {'acc@7': 0.625, 'acc@14': 0.625, 'acc@21': 0.625, 'acc@27': 0.625} records/s=64.9
+22:55:02 step 940/1510 loss=1.7779 last=0.8817 {'acc@7': 0.75, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.75} records/s=65.0
+22:55:11 step 960/1510 loss=1.3165 last=0.5848 {'acc@7': 0.75, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.875} records/s=65.0
+22:55:21 step 980/1510 loss=2.8660 last=1.2639 {'acc@7': 0.375, 'acc@14': 0.5, 'acc@21': 0.625, 'acc@27': 0.625} records/s=65.1
+22:55:30 step 1000/1510 loss=3.2446 last=1.5385 {'acc@7': 0.25, 'acc@14': 0.375, 'acc@21': 0.375, 'acc@27': 0.5} records/s=65.2
+22:55:39 step 1020/1510 loss=1.1415 last=0.4905 {'acc@7': 0.875, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=65.2
+22:55:49 step 1040/1510 loss=2.3955 last=1.1118 {'acc@7': 0.125, 'acc@14': 0.625, 'acc@21': 0.625, 'acc@27': 0.75} records/s=65.3
+22:55:59 step 1060/1510 loss=1.4454 last=0.6502 {'acc@7': 0.75, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.875} records/s=65.3
+22:56:09 step 1080/1510 loss=2.5320 last=1.2272 {'acc@7': 0.5, 'acc@14': 0.75, 'acc@21': 0.625, 'acc@27': 0.75} records/s=65.3
+22:56:18 step 1100/1510 loss=1.9149 last=0.8293 {'acc@7': 0.625, 'acc@14': 0.625, 'acc@21': 0.625, 'acc@27': 0.625} records/s=65.4
+22:56:29 step 1120/1510 loss=2.1620 last=0.9648 {'acc@7': 0.25, 'acc@14': 0.5, 'acc@21': 0.5, 'acc@27': 0.5} records/s=65.3
+22:56:39 step 1140/1510 loss=1.8587 last=0.8764 {'acc@7': 0.625, 'acc@14': 0.625, 'acc@21': 0.75, 'acc@27': 0.75} records/s=65.1
+22:56:49 step 1160/1510 loss=1.8822 last=0.8484 {'acc@7': 0.625, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=65.2
+22:56:59 step 1180/1510 loss=2.1214 last=0.9521 {'acc@7': 0.625, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=65.2
+22:57:08 step 1200/1510 loss=2.5231 last=1.1990 {'acc@7': 0.625, 'acc@14': 0.625, 'acc@21': 0.625, 'acc@27': 0.625} records/s=65.3
+22:57:17 step 1220/1510 loss=1.3724 last=0.6134 {'acc@7': 0.625, 'acc@14': 0.75, 'acc@21': 0.875, 'acc@27': 0.875} records/s=65.3
+22:57:26 step 1240/1510 loss=1.1487 last=0.5032 {'acc@7': 0.75, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.875} records/s=65.4
+22:57:35 step 1260/1510 loss=3.0733 last=1.5280 {'acc@7': 0.5, 'acc@14': 0.625, 'acc@21': 0.75, 'acc@27': 0.625} records/s=65.5
+22:57:44 step 1280/1510 loss=4.3465 last=2.1552 {'acc@7': 0.125, 'acc@14': 0.375, 'acc@21': 0.375, 'acc@27': 0.375} records/s=65.5
+22:57:54 step 1300/1510 loss=2.8049 last=1.3343 {'acc@7': 0.625, 'acc@14': 0.5, 'acc@21': 0.625, 'acc@27': 0.625} records/s=65.6
+22:58:03 step 1320/1510 loss=1.0544 last=0.4403 {'acc@7': 0.5, 'acc@14': 1.0, 'acc@21': 1.0, 'acc@27': 1.0} records/s=65.6
+22:58:12 step 1340/1510 loss=1.8749 last=0.8276 {'acc@7': 0.375, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.875} records/s=65.7
+22:58:22 step 1360/1510 loss=1.3202 last=0.5004 {'acc@7': 0.5, 'acc@14': 0.625, 'acc@21': 0.875, 'acc@27': 0.75} records/s=65.7
+22:58:31 step 1380/1510 loss=2.7394 last=1.3162 {'acc@7': 0.375, 'acc@14': 0.625, 'acc@21': 0.625, 'acc@27': 0.625} records/s=65.7
+22:58:40 step 1400/1510 loss=2.0654 last=0.9471 {'acc@7': 0.5, 'acc@14': 0.625, 'acc@21': 0.625, 'acc@27': 0.5} records/s=65.8
+22:58:49 step 1420/1510 loss=2.3680 last=1.1337 {'acc@7': 0.625, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=65.9
+22:58:58 step 1440/1510 loss=2.0799 last=0.9435 {'acc@7': 0.375, 'acc@14': 0.75, 'acc@21': 0.75, 'acc@27': 0.75} records/s=65.9
+22:59:07 step 1460/1510 loss=3.4543 last=1.6662 {'acc@7': 0.5, 'acc@14': 0.5, 'acc@21': 0.625, 'acc@27': 0.5} records/s=66.0
+22:59:16 step 1480/1510 loss=2.6976 last=1.3211 {'acc@7': 0.375, 'acc@14': 0.5, 'acc@21': 0.625, 'acc@27': 0.5} records/s=66.0
+22:59:25 step 1500/1510 loss=0.6960 last=0.3038 {'acc@7': 0.875, 'acc@14': 0.875, 'acc@21': 0.875, 'acc@27': 0.875} records/s=66.1
+22:59:30 step 1510/1510 loss=2.8331 last=1.2895 {'acc@7': 0.375, 'acc@14': 0.375, 'acc@21': 0.375, 'acc@27': 0.375} records/s=66.1
+23:00:19 layer  0 hr@1=0.1510 ndcg@10=0.3987 nll=2.790 ece=0.009 T=1.00
+23:00:19 layer  1 hr@1=0.1868 ndcg@10=0.4448 nll=2.680 ece=0.015 T=0.93
+23:00:19 layer  2 hr@1=0.2942 ndcg@10=0.5519 nll=2.321 ece=0.014 T=1.01
+23:00:19 layer  3 hr@1=0.3851 ndcg@10=0.6314 nll=2.015 ece=0.017 T=1.10
+23:00:19 layer  4 hr@1=0.3904 ndcg@10=0.6343 nll=1.999 ece=0.016 T=1.09
+23:00:19 layer  5 hr@1=0.4425 ndcg@10=0.6756 nll=1.832 ece=0.018 T=1.14
+23:00:19 layer  6 hr@1=0.4475 ndcg@10=0.6779 nll=1.828 ece=0.021 T=1.15
+23:00:19 layer  7 hr@1=0.5089 ndcg@10=0.7211 nll=1.618 ece=0.021 T=1.16
+23:00:19 layer  8 hr@1=0.5161 ndcg@10=0.7298 nll=1.574 ece=0.014 T=1.17
+23:00:19 layer  9 hr@1=0.5200 ndcg@10=0.7338 nll=1.552 ece=0.016 T=1.17
+23:00:19 layer 10 hr@1=0.5255 ndcg@10=0.7395 nll=1.528 ece=0.021 T=1.19
+23:00:19 layer 11 hr@1=0.5382 ndcg@10=0.7462 nll=1.490 ece=0.020 T=1.19
+23:00:19 layer 12 hr@1=0.5584 ndcg@10=0.7573 nll=1.432 ece=0.017 T=1.18
+23:00:19 layer 13 hr@1=0.5765 ndcg@10=0.7684 nll=1.383 ece=0.019 T=1.15
+23:00:19 layer 14 hr@1=0.5843 ndcg@10=0.7737 nll=1.352 ece=0.024 T=1.17
+23:00:19 layer 15 hr@1=0.5925 ndcg@10=0.7790 nll=1.326 ece=0.023 T=1.18
+23:00:19 layer 16 hr@1=0.5954 ndcg@10=0.7806 nll=1.318 ece=0.024 T=1.18
+23:00:19 layer 17 hr@1=0.5947 ndcg@10=0.7804 nll=1.317 ece=0.022 T=1.19
+23:00:19 layer 18 hr@1=0.5964 ndcg@10=0.7806 nll=1.317 ece=0.026 T=1.19
+23:00:19 layer 19 hr@1=0.5939 ndcg@10=0.7798 nll=1.315 ece=0.025 T=1.19
+23:00:19 layer 20 hr@1=0.5927 ndcg@10=0.7797 nll=1.315 ece=0.024 T=1.19
+23:00:19 layer 21 hr@1=0.5929 ndcg@10=0.7798 nll=1.315 ece=0.027 T=1.19
+23:00:19 layer 22 hr@1=0.5925 ndcg@10=0.7799 nll=1.315 ece=0.027 T=1.20
+23:00:19 layer 23 hr@1=0.5922 ndcg@10=0.7797 nll=1.315 ece=0.029 T=1.19
+23:00:19 layer 24 hr@1=0.5954 ndcg@10=0.7806 nll=1.315 ece=0.027 T=1.19
+23:00:19 layer 25 hr@1=0.5942 ndcg@10=0.7801 nll=1.315 ece=0.028 T=1.19
+23:00:19 layer 26 hr@1=0.5940 ndcg@10=0.7802 nll=1.315 ece=0.025 T=1.19
+23:00:19 layer 27 hr@1=0.5957 ndcg@10=0.7815 nll=1.309 ece=0.027 T=1.19
+/usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
