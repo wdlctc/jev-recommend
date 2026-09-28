@@ -1,0 +1,19 @@
+{
+  "model": "Qwen/Qwen3-4B-Instruct-2507",
+  "adapter": null,
+  "temperature": 9.372660636901855,
+  "n": 4631,
+  "accuracy": 0.7017922694882315,
+  "by_family": {
+    "knowledge": 0.8111111111111111,
+    "reading": 0.835,
+    "long_doc": 0.8396946564885496,
+    "commonsense": 0.7733333333333333,
+    "intent": 0.9233333333333333,
+    "multi_hop": 0.5166666666666667,
+    "logic": 0.5033333333333333,
+    "nli": 0.5316666666666666,
+    "tradeoff": 0.79,
+    "numeric": 0.35333333333333333
+  }
+}

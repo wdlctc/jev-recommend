@@ -178,6 +178,24 @@ runs/                results.json per run (logits in the release)
 - This is an independent study inspired by TypeSafe's Jev. It does not use or
   reproduce Jev's weights, data or RLCD training.
 
+## General typed decisions (JevBench)
+
+`jevrec/decide.py` + `jevrec/server.py` serve any Qwen3 chat model as a one-pass decision
+model over TypeSafe's wire format (`POST /v1/systemone`), so JevBench's `typesafe` adapter
+reaches it directly. The `letters` readout lists the options in the prompt and reads the
+next-token distribution over the option letters; nothing is generated.
+
+```bash
+python -m jevrec.server --model Qwen/Qwen3-4B-Instruct-2507 --readout letters \
+    --temperature 9.3727 --port 8790          # T from calibration/qwen3-4b-instruct-2507-letters.json
+```
+
+The temperature was fitted on 4,631 held-out decisions built from 15 public datasets
+(`python -m jevrec.decision_data`, `python -m jevrec.calibrate`), never on JevBench items.
+On JevBench's public 231 items (harness `fd54ea7`) this scores 166/231 (48 · 60 · 58 by tier),
+ECE 0.059 overall and 0.185 on the hard tier. A LoRA fine-tune on the same public mixture
+(`jevrec/train_decider.py`) was worse on the hard tier (0.477 vs 0.523) and is not used.
+
 ## Acknowledgements
 
 Our implementation builds on existing open reimplementations of Jev, including
