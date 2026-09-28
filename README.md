@@ -190,7 +190,7 @@ python -m jevrec.server --model Qwen/Qwen3-4B-Instruct-2507 --readout letters \
     --temperature 9.3727 --port 8790          # T from calibration/qwen3-4b-instruct-2507-letters.json
 ```
 
-The temperature was fitted on 4,631 held-out decisions built from 15 public datasets
+The temperature was fitted on 4,631 held-out decisions built from 16 public datasets
 (`python -m jevrec.decision_data`, `python -m jevrec.calibrate`), never on JevBench items.
 On JevBench's public 231 items (harness `fd54ea7`) this scores 166/231 (48 · 60 · 58 by tier),
 ECE 0.059 overall and 0.185 on the hard tier. A LoRA fine-tune on the same public mixture
